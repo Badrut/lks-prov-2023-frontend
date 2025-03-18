@@ -1,14 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
 
     const navigate = useNavigate();
-
+    const [validation , setValidation] = useState([]);
+    const token = localStorage.getItem('token');
     useEffect(() => {
-        
-    })
+       const getValidation = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/v1/validations?token=${token}`);
+                setValidation(response.data.validation)
+                console.log(response.data)
+            }
+
+            catch (error)
+            {
+                console.log(error)
+            }
+       }
+
+       getValidation();
+    } , [token])
 
     return (
         <>
@@ -44,7 +59,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-
+        
                         {/* Data Validation (Pending) */}
                         <div className="col-md-4">
                             <div className="card card-default">
@@ -57,13 +72,19 @@ const Dashboard = () => {
                                             <tr>
                                                 <th>Status</th>
                                                 <td>
-                                                    <span className="badge badge-info">Pending</span>
+                                                    <span className={`badge ${validation.status === "accepted" ? "badge-success" : "badge-info"}`}>{validation.status}</span>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th>Job Position</th>
                                                 <td className="text-muted">Web Developer</td>
                                             </tr>
+                                            {validation.status === "accepted" && validation.validator_id && (
+                                                <tr>
+                                                      <th>Validator</th>
+                                                      <td className="text-muted">{validation.validator}</td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
@@ -71,7 +92,7 @@ const Dashboard = () => {
                         </div>
 
                         {/* Data Validation (Accepted) */}
-                        <div className="col-md-4">
+                        {/* <div className="col-md-4">
                             <div className="card card-default">
                                 <div className="card-header border-0">
                                     <h5 className="mb-0">Data Validation</h5>
@@ -97,7 +118,7 @@ const Dashboard = () => {
                                     </table>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
 

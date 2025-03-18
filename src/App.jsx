@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import Request from './components/Auth/RequestValidation';
+import AddJob from './components/Auth/AddJobApplication';
 function App() {
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path='/dashboard' element={<Dashboard />}/>
             <Route path='/request-validation' element={<Request />}/>
+            <Route path='/add-job-application' element={<AddJob />}/>
           </Route>
         </Routes>
       </Router>
