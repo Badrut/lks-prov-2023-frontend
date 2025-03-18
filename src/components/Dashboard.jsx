@@ -7,13 +7,15 @@ const Dashboard = () => {
 
     const navigate = useNavigate();
     const [validation , setValidation] = useState([]);
+    const [validator , setValidator] = useState([]);
     const token = localStorage.getItem('token');
     useEffect(() => {
        const getValidation = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/api/v1/validations?token=${token}`);
                 setValidation(response.data.validation)
-                console.log(response.data)
+                setValidator(response.data.validation.validator)
+                console.log(response.data.validation.validator)
             }
 
             catch (error)
@@ -79,10 +81,10 @@ const Dashboard = () => {
                                                 <th>Job Position</th>
                                                 <td className="text-muted">Web Developer</td>
                                             </tr>
-                                            {validation.status === "accepted" && validation.validator_id && (
+                                            {validation.status === "accepted" && validator && (
                                                 <tr>
                                                       <th>Validator</th>
-                                                      <td className="text-muted">{validation.validator}</td>
+                                                      <td className="text-muted">{validator}</td>
                                                 </tr>
                                             )}
                                         </tbody>
