@@ -8,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
+    const [error, setError] = useState("");
     useEffect(() => {
         if(token)
         {
@@ -17,6 +18,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError("");
 
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/v1/auth/login", {
@@ -28,8 +30,9 @@ const Login = () => {
             navigate('/dashboard');
             console.log("Login berhasil");
         } catch (error) {
-            console.error("Login gagal", error);
-        }
+            console.log(error.response.data.message)
+            setError("ID Card Number or Password incorrect");
+          }
     };
 
     return (
@@ -46,6 +49,7 @@ const Login = () => {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-md-6">
+                            {error && <p style={{ color: "red" }}>{error}</p>}
                             <form className="card card-default" onSubmit={handleLogin}>
                                 <div className="card-header">
                                     <h4 className="mb-0">Login</h4>
@@ -68,15 +72,17 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-            </main>
 
-            <footer>
-                <div classNameName="container">
-                    <div classNameName="text-center py-4 text-muted">
+                <footer>
+                <div className="container">
+                    <div className="text-center py-4 text-muted">
                         Copyright &copy; 2023 - Web Tech ID
                     </div>
                 </div>
             </footer>
+
+            </main>
+            
         </>
     );
 };
