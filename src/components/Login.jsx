@@ -61,7 +61,7 @@ const Login = () => {
                                     </div>
                                     <div className="form-group row align-items-center mt-4">
                                         <div className="col-4"></div>
-                                        <div className="col-8"><button className="btn btn-primary" type="submit">Login</button></div>
+                                        <div className="col-8"><button className="btn btn-primary">Login</button></div>
                                     </div>
                                 </div>
                             </form>
@@ -71,8 +71,8 @@ const Login = () => {
             </main>
 
             <footer>
-                <div className="container">
-                    <div className="text-center py-4 text-muted">
+                <div classNameName="container">
+                    <div classNameName="text-center py-4 text-muted">
                         Copyright &copy; 2023 - Web Tech ID
                     </div>
                 </div>

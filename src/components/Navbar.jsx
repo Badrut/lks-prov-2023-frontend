@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
 
     return (
         <>
@@ -16,7 +24,7 @@ const Navbar = () => {
                             <a class="nav-link" href="#">Marsito Kusmawati</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
+                            <a class="nav-link" href="#" onClick={handleLogout}>Logout</a>
                         </li>
                     </ul>
                 </div>
