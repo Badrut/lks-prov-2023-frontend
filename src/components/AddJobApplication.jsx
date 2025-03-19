@@ -20,10 +20,9 @@ const AddJob = () => {
             {
                 console.log(error)
             }
-
-
         }
 
+        
 
         getJob();
     }, [])
